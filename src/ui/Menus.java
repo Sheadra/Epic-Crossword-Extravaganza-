@@ -33,6 +33,7 @@ import javafx.stage.StageStyle;
 
 public class Menus extends Application { // change to another menu after a button is clicked
 	String color = "";
+	private boolean alreadyGoing = false;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -188,11 +189,16 @@ public class Menus extends Application { // change to another menu after a butto
 
 		AnimationTimer timer = new AnimationTimer() {
 
-			private long startTime = System.currentTimeMillis();;
+			private long startTime = System.currentTimeMillis();
 			private long now = System.currentTimeMillis();
 			@Override
 			public void start() {
+				if(alreadyGoing) {
+					startTime = System.currentTimeMillis();
+					now = System.currentTimeMillis();
+				}
 				running.set(true);
+				alreadyGoing = true;
 				super.start();
 			}
 
@@ -327,7 +333,7 @@ public class Menus extends Application { // change to another menu after a butto
 			save.setOnAction(event2 -> {
 				System.out.println("saved");
 			});
-			pauseBack.setOnAction(event2 -> { //timer continues to run
+			pauseBack.setOnAction(event2 -> {
 				primaryStage.setScene(mainScene);
 				hintDown.setEffect(new GaussianBlur(0));
 				hintSide.setEffect(new GaussianBlur(0));
@@ -352,18 +358,22 @@ public class Menus extends Application { // change to another menu after a butto
 		easyButton.setOnAction(e -> { // sets the background color of the color they choose
 				timer.start();
 				primaryStage.setScene(GameScene);
+				alreadyGoing = false;
 		});
 		mediumButton.setOnAction(e -> { // sets the background color of the color they choose
 			timer.start();
 			primaryStage.setScene(GameScene);
+			alreadyGoing = false;
 	});
 		hardButton.setOnAction(e -> { // sets the background color of the color they choose
 			timer.start();
 			primaryStage.setScene(GameScene);
+			alreadyGoing = false;
 	});
 		challengButton.setOnAction(e -> { // sets the background color of the color they choose
 			timer.start();
 			primaryStage.setScene(GameScene);
+			alreadyGoing = false;
 	});
 		
 
